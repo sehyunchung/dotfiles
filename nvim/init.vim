@@ -15,8 +15,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'Yggdroot/indentLine'
 Plug 'frazrepo/vim-rainbow'
 let g:rainbow_active = 1
-Plug 'preservim/nerdtree'
-map <C-n> :NERDTreeToggle<CR>
+
 
 " TERMINAL
 set splitright
@@ -81,6 +80,7 @@ endif
 
 
 "COC - navigation
+nmap <space>e :CocCommand explorer<CR>
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
