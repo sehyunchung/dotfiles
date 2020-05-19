@@ -2,7 +2,7 @@ local boxes = {}
 local inputEnglish = "com.apple.keylayout.US"
 local box_height = 23
 local box_alpha = 0.5
-local COLOR = hs.drawing.color.asRGB({hex = "#c2255c"})
+local COLOR = hs.drawing.color.asRGB({hex = "#ffff00"})
 
 hs.keycodes.inputSourceChanged(function()
   disable_show()
