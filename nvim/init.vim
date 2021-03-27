@@ -1,21 +1,48 @@
 set termguicolors
-set nu
+set t_Co=256
+set t_AB=^[[48;5;%dm
+set t_AF=^[[38;5;%dm
+set rnu
 set sts=2
 set ts=2
 set sw=2
 set cursorcolumn
 set cursorline
+set hidden
+set updatetime=300
+set shortmess+=c
+set noshowmode
 
 call plug#begin('~/.config/nvim/plugged')
 " VIM UI
+Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
-Plug 'itchyny/lightline.vim'
-Plug 'junegunn/fzf', {'do': {-> fzf#install()}}
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'Yggdroot/indentLine'
-Plug 'frazrepo/vim-rainbow'
-let g:rainbow_active = 1
+Plug 'voldikss/vim-floaterm'
+let g:floaterm_width=0.8
+let g:floaterm_autoclose=1
+map <C-o> <Esc><Esc>:FloatermNew<CR>
+Plug 'vim-scripts/vim-auto-save'
+let g:auto_save = 1
 
+Plug 'itchyny/lightline.vim'
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
+
+Plug 'junegunn/fzf', {'do': {-> fzf#install()}}
+Plug 'junegunn/fzf.vim'
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+Plug 'frazrepo/vim-rainbow'
+let g:rainbow_active = 0
 
 " TERMINAL
 set splitright
@@ -28,6 +55,13 @@ function! OpenTerminal()
 endfunction
 nnoremap <c-\> :call OpenTerminal()<CR>
 
+" Git
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+
+" Fish
+Plug 'dag/vim-fish'
+
 " REASONML
 Plug 'reasonml-editor/vim-reason-plus'
 Plug 'jordwalke/vim-reasonml'
@@ -39,15 +73,23 @@ Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'styled-components/vim-styled-components', {'branch': 'main'}
 Plug 'jparise/vim-graphql'
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
-" VUE
-Plug 'posva/vim-vue'
+" Ruby
+Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-rails'
+
+" Elixir
+Plug 'elixir-editors/vim-elixir'
+Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
 
 " THEMES
 Plug 'w0ng/vim-hybrid'
-Plug 'jacoborus/tender.vim'
+Plug 'chriskempson/base16-vim'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'aonemd/kuroi.vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
 
-let g:material_theme_style = 'darker'
 call plug#end()
 
 " use alt+hjkl to move between split/vsplit panels
@@ -62,7 +104,9 @@ nnoremap <A-l> <C-w>l
 
 
 " COLOR SCHEME==========================================
-colorscheme hybrid
+colorscheme grb256
+let base16colorspace=256
+set background=dark
 
 
 
@@ -98,10 +142,13 @@ function! s:show_documentation()
 	endif
 endfunction
 
+nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
 
 "COC - codeaction
 nmap <leader>do <Plug>(coc-codeaction)
-
 
 "COC - languageserver settings
 let g:LanguageClient_serverCommands = {
@@ -109,7 +156,12 @@ let g:LanguageClient_serverCommands = {
 			\'vue': ['vls']
 			\}
 
+"COC - format
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+
 "FZF========================================================
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 function! s:build_quickfix_list(lines)
 	call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
 	copen
@@ -122,6 +174,7 @@ let g:fzf_action = {
 			\'ctrl-x': 'split',
 			\'ctrl-v': 'vsplit' }
 
-let g:fzf_layout = {'down': '~25%'}
+let g:fzf_layout ={'window': { 'width': 0.8, 'height': 0.6, 'xoffset': 0.5 }} 
 
-map <C-p> <Esc><Esc>:FZF<CR>
+map <silent> <Leader>g <Esc><Esc>:FZF<CR>
+map <silent> <Leader>f <Esc><Esc>:Rg<CR>
