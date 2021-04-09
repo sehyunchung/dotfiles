@@ -23,48 +23,23 @@ set noswapfile
 set nobackup
 set undodir=~/.vim/undodir
 set undofile
+imap jj <Esc>
 
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.config/nvim/pluGged')
 " VIM UI
 Plug 'neovim/nvim-lspconfig'
 Plug 'tpope/vim-surround'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+" telescope
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 Plug 'tpope/vim-vinegar'
-
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'kyazdani42/nvim-tree.lua'
-let g:nvim_tree_follow = 1
-let g:nvim_tree_disable_netrw = 0
-let g:nvim_tree_hijack_netrw = 0
-let g:nvim_tree_auto_open = 0
-let g:nvim_tree_auto_close = 1
-let g:nvim_tree_show_icons = {
-    \ 'git': 1,
-    \ 'folders': 0,
-    \ 'files': 1,
-    \ }
-let g:nvim_tree_icons = {
-    \ 'default': '',
-    \ 'symlink': '',
-    \ 'git': {
-    \   'unstaged': "✗",
-    \   'staged': "✓",
-    \   'unmerged': "",
-    \   'renamed': "➜",
-    \   'untracked': "★"
-    \   },
-    \ 'folder': {
-    \   'default': "📁",
-    \   'open': "📂",
-    \   'empty': "",
-    \   'empty_open': "",
-    \   'symlink': "",
-    \   'symlink_open': "",
-    \   }
-    \ }
-nnoremap <C-n> :NvimTreeToggle<CR>
-nnoremap <leader>r :NvimTreeRefresh<CR>
-nnoremap <leader>n :NvimTreeFindFile<CR>
 
 Plug 'voldikss/vim-floaterm'
 let g:floaterm_width=0.8
@@ -135,8 +110,6 @@ call plug#end()
 set background=dark
 colorscheme sonokai
 let g:sonokai_style='default'
-"let g:material_theme_style='default'
-"let g:material_terminal_italics = 1
 let g:airline_theme='sonokai'
 let base16colorspace=256
 
@@ -226,3 +199,4 @@ let g:fzf_layout ={'window': { 'width': 0.8, 'height': 0.6, 'xoffset': 0.5 }}
 
 map <silent> <C-f> <Esc><Esc>:GitFiles<CR>
 map <silent> <C-g> <Esc><Esc>:Rg<CR>
+map <silent> <C-b> <Esc><Esc>:bnext<CR>
