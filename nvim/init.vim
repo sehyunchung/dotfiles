@@ -1,5 +1,13 @@
+syntax on
+set noerrorbells
+set expandtab
+set smartindent
+set nowrap
+set smartcase
+set incsearch
 set termguicolors
 set t_Co=256
+set nu
 set rnu
 set sts=2
 set ts=2
@@ -12,6 +20,9 @@ set shortmess+=c
 set noshowmode
 set lsp=5
 set noswapfile
+set nobackup
+set undodir=~/.vim/undodir
+set undofile
 
 call plug#begin('~/.config/nvim/plugged')
 " VIM UI
@@ -23,9 +34,9 @@ Plug 'tpope/vim-vinegar'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 let g:nvim_tree_follow = 1
-let g:nvim_tree_disable_netrw = 1
-let g:nvim_tree_hijack_netrw = 1
-let g:nvim_tree_auto_open = 1
+let g:nvim_tree_disable_netrw = 0
+let g:nvim_tree_hijack_netrw = 0
+let g:nvim_tree_auto_open = 0
 let g:nvim_tree_auto_close = 1
 let g:nvim_tree_show_icons = {
     \ 'git': 1,
@@ -123,7 +134,7 @@ call plug#end()
 
 set background=dark
 colorscheme sonokai
-let g:sonokai_style='atlantis'
+let g:sonokai_style='default'
 "let g:material_theme_style='default'
 "let g:material_terminal_italics = 1
 let g:airline_theme='sonokai'
@@ -213,5 +224,5 @@ let g:fzf_action = {
 
 let g:fzf_layout ={'window': { 'width': 0.8, 'height': 0.6, 'xoffset': 0.5 }} 
 
-map <silent> <C-f> <Esc><Esc>:FZF<CR>
+map <silent> <C-f> <Esc><Esc>:GitFiles<CR>
 map <silent> <C-g> <Esc><Esc>:Rg<CR>
