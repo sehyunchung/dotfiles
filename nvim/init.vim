@@ -23,7 +23,7 @@ set noswapfile
 set nobackup
 set undodir=~/.vim/undodir
 set undofile
-imap jj <Esc>
+imap jk <Esc>
 
 call plug#begin('~/.config/nvim/pluGged')
 " VIM UI
