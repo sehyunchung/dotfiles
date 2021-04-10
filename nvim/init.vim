@@ -1,4 +1,6 @@
 syntax on
+set nocompatible
+filetype plugin on
 set noerrorbells
 set expandtab
 set smartindent
@@ -31,16 +33,29 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'tpope/vim-surround'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
+
+" wiki
+Plug 'vimwiki/vimwiki'
+let g:vimwiki_global_ext = 0
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': '.md'}]
+
 " telescope
+Plug 'nvim-telescope/telescope.nvim'
 " Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
+" Debugger
+Plug 'puremourning/vimspector'
+Plug 'szw/vim-maximizer'
+let g:vimspector_enable_mappings = 'HUMAN'
+
 Plug 'tpope/vim-vinegar'
 
+" floating terminal
 Plug 'voldikss/vim-floaterm'
 let g:floaterm_width=0.8
 let g:floaterm_autoclose=1
